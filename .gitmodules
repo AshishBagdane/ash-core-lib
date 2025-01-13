@@ -1,0 +1,27 @@
+[submodule "annotations"]
+	path = annotations
+	url = git@github.com:AshishBagdane/ash-core-annotations.git
+[submodule "aspects"]
+	path = aspects
+	url = git@github.com:AshishBagdane/ash-core-aspects.git
+[submodule "core-config"]
+	path = core-config
+	url = git@github.com:AshishBagdane/ash-core-config.git
+[submodule "documentation"]
+	path = documentation
+	url = git@github.com:AshishBagdane/ash-core-documentation.git
+[submodule "error-handling"]
+	path = error-handling
+	url = git@github.com:AshishBagdane/ash-core-error-handling.git
+[submodule "mapper-config"]
+	path = mapper-config
+	url = git@github.com:AshishBagdane/ash-core-mapper-config.git
+[submodule "messaging"]
+	path = messaging
+	url = git@github.com:AshishBagdane/ash-core-messaging.git
+[submodule "security"]
+	path = security
+	url = git@github.com:AshishBagdane/ash-core-security.git
+[submodule "utils"]
+	path = utils
+	url = git@github.com:AshishBagdane/ash-core-utils.git
