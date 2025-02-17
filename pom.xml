@@ -11,25 +11,88 @@
 
   <name>Ashish Bagdane's Core Library</name>
   <description>A reusable library for common Spring Boot configurations and utilities</description>
+  <url>https://github.com/AshishBagdane/ash-core-lib</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Ashish Bagdane</name>
+      <email>ashishbagdaneofficial@gmail.com</email>
+      <roles>
+        <role>owner</role>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/AshishBagdane/ash-core-lib.git</connection>
+    <developerConnection>scm:git:ssh://github.com:AshishBagdane/ash-core-lib.git</developerConnection>
+    <url>https://github.com/AshishBagdane/ash-core-lib</url>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>17</java.version>
+    <!-- Build Properties -->
+    <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- Spring Dependencies -->
     <spring-boot.version>3.2.2</spring-boot.version>
     <spring-cloud.version>2023.0.0</spring-cloud.version>
+    <spring-security.version>6.2.1</spring-security.version>
+
+    <!-- Third Party Dependencies -->
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok.version>1.18.30</lombok.version>
     <openapi.version>2.8.1</openapi.version>
-    <kafka.version>3.6.1</kafka.version>
+    <kafka.version>3.7.0</kafka.version>
     <liquibase.version>4.25.1</liquibase.version>
+    <jwt.version>0.12.3</jwt.version>
+    <resilience4j.version>2.1.0</resilience4j.version>
+    <jedis.version>5.1.0</jedis.version>
+
+    <!-- Testing Dependencies -->
+    <junit-jupiter.version>5.10.1</junit-jupiter.version>
+    <mockito.version>5.8.0</mockito.version>
+    <testcontainers.version>1.19.3</testcontainers.version>
+    <awaitility.version>4.2.0</awaitility.version>
+
+    <!-- Code Quality -->
+    <jacoco.version>0.8.12</jacoco.version>
+    <sonar.version>3.10.0.2594</sonar.version>
+    <spotless.version>2.40.0</spotless.version>
+    <checkstyle.version>10.12.5</checkstyle.version>
+    <pmd.version>3.21.2</pmd.version>
+
+    <!-- Plugin Versions -->
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+    <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+    <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+    <maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
+    <maven-project-info-reports.version>3.5.0</maven-project-info-reports.version>
+    <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.2.3</maven-failsafe-plugin.version>
   </properties>
 
   <!-- Modules Declaration -->
   <modules>
+    <module>bom</module>
+    <module>base</module>
     <module>core-config</module>
     <module>security</module>
     <module>messaging</module>
@@ -44,7 +107,7 @@
   <!-- Dependency Management -->
   <dependencyManagement>
     <dependencies>
-      <!-- Spring Boot BOM -->
+      <!-- External BOMs -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -53,7 +116,6 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- Spring Cloud BOM -->
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
@@ -62,92 +124,180 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- MapStruct -->
+      <!-- Internal Modules -->
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>core-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>security</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>messaging</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>error-handling</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>aspects</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>documentation</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>mapper-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Spring Framework Dependencies -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-aop</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.kafka</groupId>
+        <artifactId>spring-kafka</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+
+      <!-- Security -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>${jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>${jwt.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>${jwt.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- Resilience -->
+      <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-spring-boot3</artifactId>
+        <version>${resilience4j.version}</version>
+      </dependency>
+
+      <!-- Cache -->
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${jedis.version}</version>
+      </dependency>
+
+      <!-- Third Party Dependencies -->
       <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${mapstruct.version}</version>
       </dependency>
-
-      <!-- Lombok -->
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
       </dependency>
-
-      <!-- Kafka -->
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>kafka-clients</artifactId>
         <version>${kafka.version}</version>
       </dependency>
-
-      <!-- Liquibase -->
       <dependency>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
         <version>${liquibase.version}</version>
       </dependency>
-
-      <!-- OpenAPI -->
       <dependency>
-        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         <version>${openapi.version}</version>
+      </dependency>
+
+      <!-- Testing Dependencies -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
+        <version>${awaitility.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <!-- Common Dependencies for all modules -->
-  <dependencies>
-    <!-- Spring Boot Starter -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-
-    <!-- Spring Boot Configuration Processor -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- Lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- Test Dependencies -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <!-- Build Configuration -->
   <build>
     <pluginManagement>
       <plugins>
-        <!-- Spring Boot Maven Plugin -->
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring-boot.version}</version>
-        </plugin>
-
-        <!-- Maven Compiler Plugin -->
+        <!-- Core Build Plugins -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.11.0</version>
+          <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
+            <release>${java.version}</release>
             <annotationProcessorPaths>
               <path>
                 <groupId>org.projectlombok</groupId>
@@ -163,11 +313,11 @@
           </configuration>
         </plugin>
 
-        <!-- Maven Source Plugin -->
+        <!-- Documentation Plugins -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>${maven-source-plugin.version}</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -178,11 +328,18 @@
           </executions>
         </plugin>
 
-        <!-- Maven Javadoc Plugin -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.6.3</version>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <sourceFileExcludes>
+              <sourceFileExclude>**/generated-sources/**/*.java</sourceFileExclude>
+            </sourceFileExcludes>
+            <excludePackageNames>*.generated.*</excludePackageNames>
+            <additionalJOption>-Xdoclint:none</additionalJOption>
+            <doclint>-missing</doclint>
+          </configuration>
           <executions>
             <execution>
               <id>attach-javadocs</id>
@@ -192,8 +349,182 @@
             </execution>
           </executions>
         </plugin>
+
+        <!-- Release and Deployment Plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+          <configuration>
+            <tagNameFormat>v@{project.version}</tagNameFormat>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <releaseProfiles>release</releaseProfiles>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+        </plugin>
+
+        <!-- Code Quality Plugins -->
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>${sonar.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>${spotless.version}</version>
+          <configuration>
+            <java>
+              <importOrder />
+              <removeUnusedImports />
+              <googleJavaFormat>
+                <version>1.17.0</version>
+                <style>GOOGLE</style>
+              </googleJavaFormat>
+            </java>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${checkstyle.version}</version>
+          <configuration>
+            <configLocation>google_checks.xml</configLocation>
+          </configuration>
+        </plugin>
+
+        <!-- Testing Plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+
+    <!-- Plugins to be executed for all modules -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
+
+  <!-- Profiles -->
+  <profiles>
+    <!-- Development Profile -->
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <spring.profiles.active>dev</spring.profiles.active>
+      </properties>
+    </profile>
+
+    <!-- Release Profile -->
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Code Quality Profile -->
+    <profile>
+      <id>quality</id>
+      <properties>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>ashishbagdane</sonar.organization>
+        <sonar.projectKey>ash-core-lib</sonar.projectKey>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <!-- Distribution Management -->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
 </project>
