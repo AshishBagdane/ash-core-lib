@@ -1,3 +1,6 @@
+[submodule "base"]
+	path = base
+	url = git@github.com:AshishBagdane/ash-core-base.git
 [submodule "annotations"]
 	path = annotations
 	url = git@github.com:AshishBagdane/ash-core-annotations.git
