@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ash.core.lib</groupId>
+    <artifactId>ash-core-lib</artifactId>
+    <version>2025.1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>bom</artifactId>
+  <packaging>pom</packaging>
+
+  <name>Ash Core Library BOM</name>
+  <description>Bill of Materials for ASH Core Library</description>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>security</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>aspects</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>core-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>documentation</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>error-handling</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>mapper-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>messaging</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ash.core.lib</groupId>
+        <artifactId>utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+</project>
