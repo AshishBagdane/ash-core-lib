@@ -1,6 +1,6 @@
 # ASH Core Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/ash.core.lib/ash-core-lib.svg)](https://central.sonatype.com/artifact/ash.core.lib/ash-core-lib)
+[![Maven Central](https://img.shields.io/maven-central/v/com.ashishbagdane.lib/ash-core-lib.svg)](https://central.sonatype.com/artifact/com.ashishbagdane.lib/ash-core-lib)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Build Status](https://github.com/AshishBagdane/ash-core-lib/workflows/Build/badge.svg)](https://github.com/AshishBagdane/ash-core-lib/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ash-core-lib&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ash-core-lib)
@@ -63,7 +63,7 @@ Add the following to your `pom.xml`:
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>ash.core.lib</groupId>
+      <groupId>com.ashishbagdane.lib</groupId>
       <artifactId>ash-core-lib-bom</artifactId>
       <version>${ash-core-lib.version}</version>
       <type>pom</type>
@@ -79,11 +79,11 @@ Then add specific modules as needed:
 
 <dependencies>
   <dependency>
-    <groupId>ash.core.lib</groupId>
+    <groupId>com.ashishbagdane.lib</groupId>
     <artifactId>security</artifactId>
   </dependency>
   <dependency>
-    <groupId>ash.core.lib</groupId>
+    <groupId>com.ashishbagdane.lib</groupId>
     <artifactId>messaging</artifactId>
   </dependency>
   <!-- Add other modules as needed -->
